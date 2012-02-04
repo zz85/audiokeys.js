@@ -1,0 +1,37 @@
+# AudioKeys.js
+
+AudioKeys is a javascript wrapper to help monitor various part of the audio spectrum using HTML5 audio apis.
+
+
+## Example
+```
+var audio = new AudioKeys('arabesque1.ogg');
+audio.load(function() {
+// When audio file is ready to play
+audio.play();
+});
+```
+
+AudioKey’s API allows you to "watch" or monitor portions of the frequency spectrum so this means you could get different amplitude levels from monitors watched in the different parts of the spectrum (eg. 1 for bass, 1 for treble, 1 for mids).
+
+The following code add monitors and retrieve audio levels.
+
+
+```
+// adds  audio monitors
+audio.addWatchers(startFreqBin, endFreqBin, lowLimit, highLimit);
+audio.addWatchers(startFreqBin2, endFreqBin2, lowLimit2, highLimit2);
+
+// in your application loop
+audio.process();
+
+// returns the average amptitude level of the monitored section of audio
+levels1 = audio.getLevels(0);
+levels2 = audio.getLevels(1);
+```
+
+On firefox browsers, AudioKeys falls back to MozAudioKeys, a firefox implementation for a compatible AudioKeys api, but internally uses dsp.js for its fft processing.
+
+More information see http://www.lab4games.net/zz85/blog/2011/09/21/music-colour-particles/
+
+
